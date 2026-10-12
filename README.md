@@ -1,6 +1,8 @@
 # landmark-audit
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![npm version](https://img.shields.io/npm/v/landmark-audit?style=flat-square)](https://www.npmjs.com/package/landmark-audit)
+[![Bun](https://img.shields.io/badge/bun-%3E%3D1.3-black?style=flat-square&logo=bun&logoColor=white)](https://bun.sh)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 
 Check every page of a running web app for a working "skip to content" link. Each page needs exactly one `<main id="main-content">` element and exactly one skip link pointing at it. The tool also finds in-page links such as `href="#pricing"` whose target doesn't exist on any page.
 
@@ -247,6 +249,15 @@ If your pages send their `<main>` as plain HTML and you want broad accessibility
 - **Streamed pages get a lighter check.** React can send the same piece of a page more than once while streaming, so counting would report false duplicates. For a page whose `<main>` arrives only in the flight payload, the tool checks that the landmark and the skip link exist, not how many there are.
 - **Automatic page discovery is Next.js App Router only.** For other frameworks, list pages with `--routes` or `routes`.
 - **It doesn't start your server.** Start it before the audit runs.
+
+## Structure
+
+```
+landmark-audit/
+├── src/         # Landmark scanner, DOM & React flight payload parsers
+├── test/        # Test suite
+└── package.json
+```
 
 ## Development
 
