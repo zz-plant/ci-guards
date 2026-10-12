@@ -1,0 +1,60 @@
+{
+  "name": "bun-test-network-guard",
+  "version": "0.1.0",
+  "description": "Stop bun test from reaching the internet: remote fetch calls throw, requests to localhost still work.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zz-plant/bun-test-network-guard.git"
+  },
+  "homepage": "https://github.com/zz-plant/bun-test-network-guard#readme",
+  "bugs": "https://github.com/zz-plant/bun-test-network-guard/issues",
+  "author": "Kanav Jain",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "bun": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./preload": {
+      "types": "./dist/preload.d.ts",
+      "bun": "./src/preload.ts",
+      "default": "./dist/preload.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "bun",
+    "bun-test",
+    "network",
+    "fetch",
+    "preload",
+    "hermetic",
+    "testing",
+    "offline"
+  ],
+  "engines": {
+    "bun": ">=1.1",
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepare": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.test.json",
+    "test": "bun test",
+    "check": "bun run typecheck && bun run test",
+    "prepublishOnly": "bun run check && bun run build"
+  },
+  "devDependencies": {
+    "bun-types": "^1.3.14",
+    "typescript": "^5.9.2"
+  }
+}
