@@ -1,6 +1,8 @@
 # suppression-census
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![npm version](https://img.shields.io/npm/v/suppression-census?style=flat-square)](https://www.npmjs.com/package/suppression-census)
+[![Bun](https://img.shields.io/badge/bun-%3E%3D1.3-black?style=flat-square&logo=bun&logoColor=white)](https://bun.sh)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 
 Fail CI when your codebase gains a new way of ignoring a check, such as an `eslint-disable` comment, a `@ts-ignore`, a skipped test, or a lint rule switched off in config.
 
@@ -213,6 +215,15 @@ The three Ratchet actions also cover Python and catch `.only` in tests. If you o
 - Matching is done line by line on the text. It doesn't parse code, so a pattern inside a string or a comment about suppressions still counts. Use `exclude` for files where that happens.
 - ESLint's flat config (`eslint.config.js`) is JavaScript, not JSON, so the rule audit can't read it. The comment and test counts still work.
 - Only JavaScript and TypeScript files are scanned by default.
+
+## Structure
+
+```
+suppression-census/
+├── src/         # CLI scanner, pattern matchers & baseline comparisons
+├── test/        # Test suite
+└── package.json
+```
 
 ## Development
 
