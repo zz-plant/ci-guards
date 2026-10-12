@@ -7,9 +7,9 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "bun --filter '*' run build",
+    "build": "bun run --filter='*' build",
     "test": "bun test packages/* test/*",
-    "typecheck": "bun --filter '*' run typecheck",
+    "typecheck": "bun run --filter='*' typecheck",
     "check": "bun run typecheck && bun run test"
   },
   "devDependencies": {

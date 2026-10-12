@@ -35,8 +35,10 @@ describe("CI Guards Monorepo Integrity Contract (TDD Harness)", () => {
   });
 
   it("verifies suppression-census CLI entrypoint exists", () => {
-    const binPath = join(ROOT, "packages", "suppression-census", "bin", "suppression-census.mjs");
-    expect(existsSync(binPath)).toBe(true);
+    const srcBinPath = join(ROOT, "packages", "suppression-census", "src", "cli.ts");
+    const distBinPath = join(ROOT, "packages", "suppression-census", "dist", "cli.js");
+    expect(existsSync(srcBinPath)).toBe(true);
+    expect(existsSync(distBinPath)).toBe(true);
   });
 
   it("builds all packages and produces valid dist/ bundles", () => {
