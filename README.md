@@ -14,7 +14,76 @@ A consolidated suite of zero-overhead, developer-facing quality and security gat
 | [`landmark-audit`](packages/landmark-audit) | Audits web routes for single `<main>` landmark and working skip-to-content links. | 21 tests |
 | [`suppression-census`](packages/suppression-census) | Fails CI when codebases add new `@ts-ignore`, `eslint-disable`, or skipped tests. | 19 tests |
 
-## Quick Start
+## Using the Guards in Your Projects
+
+Each package is self-contained with zero runtime dependencies. Drop them into your project to enforce invariants:
+
+### 1. `bun-test-network-guard` — Hermetic Unit Tests
+
+Blocks all outbound network requests during `bun test` while keeping localhost requests working:
+
+```bash
+bun add --dev bun-test-network-guard
+```
+
+In your project root `bunfig.toml`:
+```toml
+[test]
+preload = ["bun-test-network-guard/preload"]
+```
+
+To allow live network calls on a specific test run:
+```bash
+TEST_ALLOW_NETWORK=1 bun test
+```
+
+---
+
+### 2. `suppression-census` — Zero Suppression Creep
+
+Fails CI when a PR introduces a new `@ts-ignore`, `@ts-expect-error`, `eslint-disable`, `biome-ignore`, or skipped test:
+
+```bash
+bun add --dev suppression-census
+```
+
+Create an initial baseline file:
+```bash
+bunx suppression-census --save-baseline .suppression-baseline.json
+```
+
+Add to your CI workflow (`.github/workflows/ci.yml`):
+```yaml
+- name: Check suppression creep
+  run: bunx suppression-census --baseline .suppression-baseline.json
+```
+
+---
+
+### 3. `landmark-audit` — Accessibility & Skip-Link Gate
+
+Verifies that every route in a running application has exactly one `<main>` landmark and a working skip-to-content link:
+
+```bash
+bun add --dev landmark-audit
+```
+
+Audit running web routes:
+```bash
+bunx landmark-audit http://localhost:3000 --routes / /about /pricing /docs
+```
+
+Or check an HTML string inside a component test:
+```ts
+import { inspectMainContentHtml } from "landmark-audit";
+
+const report = inspectMainContentHtml(renderedHtml);
+expect(report.issues).toEqual([]);
+```
+
+---
+
+## Contributing to this Monorepo
 
 ### Installation
 
