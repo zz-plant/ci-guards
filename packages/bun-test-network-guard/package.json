@@ -1,7 +1,7 @@
 {
   "name": "bun-test-network-guard",
   "version": "0.1.0",
-  "description": "Stop bun test from reaching the internet: remote fetch calls throw, requests to localhost still work.",
+  "description": "Stop bun test from reaching the internet: remote connections throw and fail the test that made them, localhost still works.",
   "license": "MIT",
   "repository": {
     "type": "git",
