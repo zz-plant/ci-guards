@@ -5,10 +5,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zz-plant/suppression-census.git"
+    "url": "git+https://github.com/zz-plant/ci-guards.git",
+    "directory": "packages/suppression-census"
   },
-  "homepage": "https://github.com/zz-plant/suppression-census#readme",
-  "bugs": "https://github.com/zz-plant/suppression-census/issues",
+  "homepage": "https://github.com/zz-plant/ci-guards/tree/main/packages/suppression-census#readme",
+  "bugs": "https://github.com/zz-plant/ci-guards/issues",
   "author": "Kanav Jain",
   "type": "module",
   "main": "./dist/index.js",

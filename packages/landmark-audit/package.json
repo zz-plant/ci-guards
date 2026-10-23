@@ -5,10 +5,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zz-plant/landmark-audit.git"
+    "url": "git+https://github.com/zz-plant/ci-guards.git",
+    "directory": "packages/landmark-audit"
   },
-  "homepage": "https://github.com/zz-plant/landmark-audit#readme",
-  "bugs": "https://github.com/zz-plant/landmark-audit/issues",
+  "homepage": "https://github.com/zz-plant/ci-guards/tree/main/packages/landmark-audit#readme",
+  "bugs": "https://github.com/zz-plant/ci-guards/issues",
   "author": "Kanav Jain",
   "type": "module",
   "main": "./dist/index.js",
