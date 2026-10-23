@@ -1,6 +1,6 @@
 {
   "name": "suppression-census",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Fail CI when your codebase gains a new eslint-disable, @ts-ignore, skipped test, or lint rule switched off.",
   "license": "MIT",
   "repository": {

@@ -1,6 +1,6 @@
 {
   "name": "bun-test-network-guard",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Stop bun test from reaching the internet: remote connections throw and fail the test that made them, localhost still works.",
   "license": "MIT",
   "repository": {
