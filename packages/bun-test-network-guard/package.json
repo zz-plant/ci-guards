@@ -5,10 +5,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zz-plant/bun-test-network-guard.git"
+    "url": "git+https://github.com/zz-plant/ci-guards.git",
+    "directory": "packages/bun-test-network-guard"
   },
-  "homepage": "https://github.com/zz-plant/bun-test-network-guard#readme",
-  "bugs": "https://github.com/zz-plant/bun-test-network-guard/issues",
+  "homepage": "https://github.com/zz-plant/ci-guards/tree/main/packages/bun-test-network-guard#readme",
+  "bugs": "https://github.com/zz-plant/ci-guards/issues",
   "author": "Kanav Jain",
   "type": "module",
   "main": "./dist/index.js",
