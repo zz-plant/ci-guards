@@ -1,6 +1,6 @@
 {
   "name": "landmark-audit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Check every page of a running web app for exactly one <main> landmark and a working skip-to-content link.",
   "license": "MIT",
   "repository": {

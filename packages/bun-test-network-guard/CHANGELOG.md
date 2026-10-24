@@ -1,5 +1,11 @@
 # bun-test-network-guard
 
+## 0.2.1
+
+### Patch Changes
+
+- 862e990: Point package source, README and issue links to the canonical ci-guards monorepo and identify each package directory.
+
 ## 0.2.0
 
 ### Minor Changes
