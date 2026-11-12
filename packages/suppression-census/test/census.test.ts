@@ -5,6 +5,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 
 import {
+  DEFAULT_CATEGORIES,
   auditLintRulesFromConfig,
   censusFromConfig,
   compareToBaseline,
@@ -111,6 +112,62 @@ describe("takeCensus", () => {
     const census = takeCensus({ root });
     assert.equal(census.lintRules, null);
     assert.equal("disabledLintRules" in census.counts, false);
+  });
+});
+
+describe("DEFAULT_CATEGORIES matchers", () => {
+  const count = (key: string, line: string): number => {
+    const category = DEFAULT_CATEGORIES.find((entry) => entry.key === key);
+    assert.ok(category, key);
+    category.pattern.lastIndex = 0;
+    return line.match(category.pattern)?.length ?? 0;
+  };
+
+  it("counts a type directive only where it opens the comment, as TypeScript reads it", () => {
+    for (const line of [
+      "// @ts-expect-error Mocking a private field",
+      "//@ts-ignore",
+      "/// @ts-ignore",
+      "/* @ts-ignore */",
+      "/** @ts-expect-error */",
+      "const value = load(); // @ts-ignore",
+      " * @ts-expect-error closing line of a block comment",
+      "// @ts-nocheck",
+      "{/* @ts-expect-error JSX child */}",
+    ]) {
+      assert.equal(count("typeSuppressions", line), 1, line);
+    }
+  });
+
+  it("ignores a comment that mentions a type directive mid-sentence", () => {
+    for (const line of [
+      "// because a @ts-nocheck directive *is* a comment — stripping comments",
+      " * any types at all — the imports carried `@ts-expect-error` saying exactly",
+      "/* prefer @ts-expect-error over @ts-ignore */",
+      'const hint = "use @ts-expect-error";',
+    ]) {
+      assert.equal(count("typeSuppressions", line), 0, line);
+    }
+  });
+
+  it("counts a lint directive only where it opens the comment", () => {
+    for (const line of [
+      "// eslint-disable-next-line no-console",
+      "/* eslint-disable */",
+      "foo(); // oxlint-disable-line",
+      "// biome-ignore lint/suspicious/noExplicitAny: fine",
+      "{/* eslint-disable-next-line react/no-danger */}",
+    ]) {
+      assert.equal(count("lintSuppressions", line), 1, line);
+    }
+    for (const line of [
+      "// oxlint honours eslint-disable comments, so both spellings suppress",
+      "/* never add biome-ignore here */",
+      " * a reviewer who sees eslint-disable-next-line should ask why",
+      'const directive = "eslint-disable";',
+    ]) {
+      assert.equal(count("lintSuppressions", line), 0, line);
+    }
   });
 });
 
