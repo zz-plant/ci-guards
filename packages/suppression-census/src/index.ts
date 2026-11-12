@@ -23,19 +23,31 @@ export type Category = {
   pattern: RegExp;
 };
 
+/**
+ * Where a comment's text begins: after `//` (or `///`), after `/*` (or `/**`), or
+ * at a `*` continuation line inside a block comment. TypeScript, ESLint, oxlint
+ * and Biome only honour a directive that opens the comment, so a comment that
+ * merely mentions `@ts-expect-error` mid-sentence suppresses nothing and must not
+ * be counted.
+ */
+const COMMENT_START = String.raw`(?:\/\/+[ \t]*|\/\*+[ \t*]*|^[ \t]*\*+[ \t]*)`;
+
+/** A directive that opens a comment, matched globally so each occurrence on a line counts. */
+const commentDirective = (directive: string) => new RegExp(`${COMMENT_START}(?:${directive})`, "g");
+
 export const DEFAULT_CATEGORIES: readonly Category[] = [
   {
     key: "lintSuppressions",
     label: "inline lint suppressions",
     remedy: "fix the finding, or narrow the disable to one line with a `--` reason",
     // oxlint honours eslint-disable comments, so both spellings suppress; biome has its own.
-    pattern: /\b(?:es|ox)lint-disable(?:-next-line|-line)?\b|\bbiome-ignore\b/g,
+    pattern: commentDirective(String.raw`(?:es|ox)lint-disable(?:-next-line|-line)?\b|biome-ignore\b`),
   },
   {
     key: "typeSuppressions",
     label: "type-checker suppressions",
     remedy: "type the value, or narrow to @ts-expect-error with a reason",
-    pattern: /@ts-(?:ignore|expect-error|nocheck)\b/g,
+    pattern: commentDirective(String.raw`@ts-(?:ignore|expect-error|nocheck)\b`),
   },
   {
     key: "skippedTests",

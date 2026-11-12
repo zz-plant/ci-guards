@@ -212,7 +212,7 @@ The three Ratchet actions also cover Python and catch `.only` in tests. If you o
 
 ## Limitations
 
-- Matching is done line by line on the text. It doesn't parse code, so a pattern inside a string or a comment about suppressions still counts. Use `exclude` for files where that happens.
+- Matching is done line by line on the text. A lint or type directive counts only where it opens a comment (after `//`, `/*`, or a block comment's leading `*`), which is where ESLint, oxlint, Biome and TypeScript honour it, so a comment that mentions `@ts-expect-error` mid-sentence is not counted. The scanner doesn't parse code, so a directive-shaped comment inside a string literal still counts. Use `exclude` for files where that happens.
 - ESLint's flat config (`eslint.config.js`) is JavaScript, not JSON, so the rule audit can't read it. The comment and test counts still work.
 - Only JavaScript and TypeScript files are scanned by default.
 
